@@ -9,17 +9,24 @@ use App\Http\Resources\PostResource;
 use App\Http\Resources\UserResource;
 use App\Models\Comment;
 use App\Models\Post;
-
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class UserController extends Controller
 {
-    public function show()
+    /**
+     * @return UserResource
+     */
+    public function show(): UserResource
     {
         return new UserResource(auth()->user());
     }
 
-    public function createComment(CommentRequest $request)
+    /**
+     * @property CommentRequest $request
+     * @return CommentResource
+     */
+    public function createComment(CommentRequest $request): CommentResource
     {
         $comment = Comment::create($request->validated());
         $comment->load('author');
@@ -27,14 +34,21 @@ class UserController extends Controller
         return new CommentResource($comment);
     }
 
-    public function deleteComment(Comment $comment)
+    /**
+     * @property Comment $comment
+     * @return Response
+     */
+    public function deleteComment(Comment $comment): Response
     {
         $comment->delete();
 
         return response()->noContent();
     }
 
-    public function getPosts()
+    /**
+     * @return AnonymousResourceCollection
+     */
+    public function getPosts(): AnonymousResourceCollection
     {
         return PostResource::collection(
             Post::with(['author', 'categories'])
@@ -47,7 +61,11 @@ class UserController extends Controller
         );
     }
 
-    public function createPost(PostRequest $request)
+    /**
+     * @property PostRequest $request
+     * @return PostResource
+     */
+    public function createPost(PostRequest $request): PostResource
     {
         $post = Post::create($request->only('user_id', 'title', 'content'));
         $post->categories()->attach($request->input('categories', []));
@@ -55,7 +73,12 @@ class UserController extends Controller
         return new PostResource($post);
     }
 
-    public function updatePost(Post $post, PostRequest $request)
+    /**
+     * @property Post $post
+     * @property PostRequest $request
+     * @return PostResource
+     */
+    public function updatePost(Post $post, PostRequest $request): PostResource
     {
         $post->update($request->only('user_id', 'title', 'content'));
         $post->categories()->sync($request->input('categories', []));
@@ -63,7 +86,11 @@ class UserController extends Controller
         return new PostResource($post);
     }
 
-    public function deletePost(Post $post)
+    /**
+     * @property Post $post
+     * @return Response
+     */
+    public function deletePost(Post $post): Response
     {
         $post->comments()->delete();
         $post->categories()->detach();

@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AuthRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function login(AuthRequest $request)
+    /**
+     * @property AuthRequest $request
+     * @return JsonResponse
+     */
+    public function login(AuthRequest $request): JsonResponse
     {
         if (!auth()->attempt($request->only('email', 'password'))) {
             abort(Response::HTTP_UNPROCESSABLE_ENTITY, 'Invalid credentials');
@@ -22,7 +26,11 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register(AuthRequest $request)
+    /**
+     * @property AuthRequest $request
+     * @return JsonResponse
+     */
+    public function register(AuthRequest $request): JsonResponse
     {
         $user = User::create($request->only('email', 'password', 'name'));
 
@@ -32,7 +40,10 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout()
+    /**
+     * @return void
+     */
+    public function logout(): void
     {
         auth()->user()->currentAccessToken()->delete();
         

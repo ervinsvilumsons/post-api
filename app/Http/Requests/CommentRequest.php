@@ -13,6 +13,7 @@ class CommentRequest extends FormRequest
     {
         return auth()->hasUser();
     }
+    
     /**
      * Get the validation rules that apply to the request.
      *
