@@ -10,6 +10,6 @@ docker-compose up -d --build
 ## Tests
 ```
 docker exec -it workspace /bin/bash
-vendor/bin/phpunit --coverage-html /coverage
+vendor/bin/phpunit --coverage-html coverage
 ```
 
