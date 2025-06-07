@@ -28,6 +28,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/user/post', ['as' => 'createPost', 'uses' => 'App\Http\Controllers\UserController@createPost']);
 
         Route::get('/user', ['as' => 'show', 'uses' => 'App\Http\Controllers\UserController@show']);
-        Route::post('/user', ['as' => 'create', 'uses' => 'App\Http\Controllers\UserController@create']);
     });
 });

@@ -31,18 +31,8 @@ class Comment extends Model
     protected function message(): Attribute
     {
         return Attribute::make(
-            set: fn ($value) => strip_tags($value)
+            set: fn ($value) => strip_tags($value),
         );
-    }
-
-    /**
-     * Get the post relation for the comment.
-     * 
-     * @return BelongsTo
-     */
-    public function post(): BelongsTo
-    {
-        return $this->belongsTo(Post::class, 'post_id', 'id');
     }
 
     /**

@@ -13,6 +13,14 @@ class CommentRequest extends FormRequest
     {
         return auth()->hasUser();
     }
+
+    /**
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
+        $this->merge(['user_id' => auth()->id()]);
+    }
     
     /**
      * Get the validation rules that apply to the request.

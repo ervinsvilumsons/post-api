@@ -33,7 +33,7 @@ class Post extends Model
     protected function title(): Attribute
     {
         return Attribute::make(
-            set: fn ($value) => strip_tags($value)
+            set: fn ($value) => strip_tags($value),
         );
     }
 
@@ -45,7 +45,7 @@ class Post extends Model
     protected function content(): Attribute
     {
         return Attribute::make(
-            set: fn ($value) => strip_tags($value)
+            set: fn ($value) => strip_tags($value),
         );
     }
 

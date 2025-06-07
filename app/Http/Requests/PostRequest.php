@@ -15,6 +15,14 @@ class PostRequest extends FormRequest
     }
 
     /**
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
+        $this->merge(['user_id' => auth()->id()]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>

@@ -51,11 +51,12 @@ class UserController extends Controller
     public function getPosts(): AnonymousResourceCollection
     {
         return PostResource::collection(
-            Post::with(['author', 'categories'])
+            auth()->user()
+                ->posts()
+                ->with(['author', 'categories'])
                 ->withCount('comments')
                 ->filterCategories(request()->query('categories'))
                 ->searchTerm(request()->query('search'))
-                ->where('user_id', auth()->id())
                 ->orderBy('created_at', 'DESC')
                 ->paginate()
         );

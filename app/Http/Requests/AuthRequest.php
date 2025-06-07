@@ -30,6 +30,7 @@ class AuthRequest extends FormRequest
             $rules = [
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|min:8|confirmed',
+                'name' => 'required|string',
             ];
         }
 

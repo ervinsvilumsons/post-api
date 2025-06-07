@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -57,19 +56,8 @@ class User extends Authenticatable
     protected function name(): Attribute
     {
         return Attribute::make(
-            set: fn ($value) => strip_tags($value)
+            set: fn ($value) => strip_tags($value),
         );
-    }
-
-    /**
-     * Get the comments for the user.
-     * 
-     * @return HasMany
-     */
-    public function comments(): HasMany
-    {
-        return $this->hasMany(Comment::class)
-            ->orderBy('created_at', 'DESC');
     }
 
     /**
