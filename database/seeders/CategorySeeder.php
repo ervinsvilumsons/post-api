@@ -23,7 +23,7 @@ class CategorySeeder extends Seeder
             ];
 
             foreach($categories as $category) {
-                Category::factory(['title' => $category])->create();
+                Category::factory()->create(['title' => $category]);
             }
         }
     }
