@@ -24,6 +24,7 @@ class PostController extends Controller
     }
 
     /**
+     * @param Post $post
      * @return PostResource
      */
     public function show(Post $post): PostResource

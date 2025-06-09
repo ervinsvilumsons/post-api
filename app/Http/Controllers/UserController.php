@@ -23,7 +23,7 @@ class UserController extends Controller
     }
 
     /**
-     * @property CommentRequest $request
+     * @param CommentRequest $request
      * @return CommentResource
      */
     public function createComment(CommentRequest $request): CommentResource
@@ -35,7 +35,7 @@ class UserController extends Controller
     }
 
     /**
-     * @property Comment $comment
+     * @param Comment $comment
      * @return Response
      */
     public function deleteComment(Comment $comment): Response
@@ -63,7 +63,7 @@ class UserController extends Controller
     }
 
     /**
-     * @property PostRequest $request
+     * @param PostRequest $request
      * @return PostResource
      */
     public function createPost(PostRequest $request): PostResource
@@ -75,8 +75,8 @@ class UserController extends Controller
     }
 
     /**
-     * @property Post $post
-     * @property PostRequest $request
+     * @param Post $post
+     * @param PostRequest $request
      * @return PostResource
      */
     public function updatePost(Post $post, PostRequest $request): PostResource
@@ -88,7 +88,7 @@ class UserController extends Controller
     }
 
     /**
-     * @property Post $post
+     * @param Post $post
      * @return Response
      */
     public function deletePost(Post $post): Response

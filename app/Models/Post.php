@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -51,15 +52,17 @@ class Post extends Model
 
     /**
      * Filter blog posts by categories.
+     * 
+     * @return Builder
      */
-    public function scopeFilterCategories($query, $categories)
+    public function scopeFilterCategories($query, $categories): Builder
     {
         $categories = $categories ? array_map('intval', explode(',', $categories)) : [];
 
         return $query
-            ->when(!empty($categories), function ($query) use ($categories) {
+            ->when(!empty($categories), function (Builder $query) use ($categories) {
                 $query
-                    ->whereHas('categories', function ($query) use ($categories) {
+                    ->whereHas('categories', function (Builder $query) use ($categories) {
                         $query
                             ->whereIn('categories.id', $categories);
                     });
@@ -68,11 +71,13 @@ class Post extends Model
 
     /**
      * Filter blog posts by search term.
+     * 
+     * @return Builder
      */
-    public function scopeSearchTerm($query, $searchTerm)
+    public function scopeSearchTerm($query, $searchTerm): Builder
     {
         return $query
-            ->when($searchTerm && $searchTerm !== '', function ($query) use ($searchTerm) {
+            ->when($searchTerm && $searchTerm !== '', function (Builder $query) use ($searchTerm) {
                 $searchTerm = strtolower($searchTerm);
 
                 $query->whereRaw("(LOWER(posts.title) LIKE ? OR LOWER(posts.content) LIKE ?)", ["%{$searchTerm}%", "%{$searchTerm}%"]);

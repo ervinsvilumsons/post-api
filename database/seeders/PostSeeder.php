@@ -26,8 +26,7 @@ class PostSeeder extends Seeder
 
                     Comment::factory()
                         ->count(rand(1, 5))
-                        ->for($post)
-                        ->create();
+                        ->create(['post_id' => $post->id]);
                 });
         }
     }

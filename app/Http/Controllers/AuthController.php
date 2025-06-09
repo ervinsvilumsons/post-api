@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 class AuthController extends Controller
 {
     /**
-     * @property AuthRequest $request
+     * @param AuthRequest $request
      * @return JsonResponse
      */
     public function login(AuthRequest $request): JsonResponse
@@ -27,7 +27,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @property AuthRequest $request
+     * @param AuthRequest $request
      * @return JsonResponse
      */
     public function register(AuthRequest $request): JsonResponse
